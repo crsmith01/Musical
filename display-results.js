@@ -77,7 +77,7 @@ function searchTMApi(query, format) {
         // ticketMasterRes function should be blue???
         .then(function (ticketMasterRes) {
             // except it won't be textContent since it's a date entered via datepicker
-            resultDateEl.textContent = bandsRes.search.query;
+            resultDateEl.textContent = ticketMasterRes.search.query;
 
             // might not be this because length isn't really a factor in datepicker. 
             // Basically make it so that if there are no concerts that day, it says no results found
