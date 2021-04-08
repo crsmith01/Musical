@@ -5,8 +5,8 @@ Local Musical or Locale Musicale --- which sounds better?
 ## User Story
 
 ```
-AS AN user
-I WANT to find live music events in central Virginia
+AS A user
+I WANT to find live music events in the United States
 SO THAT I can learn about visiting and local music artists.
 ```
 

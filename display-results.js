@@ -18,8 +18,8 @@ function writeResults(resultObj) {
     resultBody.classList.add('card-body');
     resultCard.append(resultCard);
 
-    var titleEl = document.createElement('h3');
-    titleEl.textContent = resultObj.title;
+    var titleEventEl = document.createElement('h3');
+    titleEventEl.textContent = resultObj.title;
 
     var bodyContentEl = document.createElement('p');
     // This could change once we see what the API shows
@@ -51,20 +51,22 @@ function writeResults(resultObj) {
 
     resultContentEl.append(resultCard);
 }
+xs
 
-
-function searchBandsApi(query, format) {
+function searchTMApi(query, format) {
     // nee to figure out what query(s) we need from them - this one is just searching for a specific artist's events (replace {{arist name}} with actual artist name - no punctuation needed between words in artist name)
-    var bandsQueryUrl = 'https://rest.bandsintown.com/artists/{{artist_name}}/events/?app_id=bb8f8a9b8e2dcb483a539f7f29bcc2a5-id';
+    var ticketMasterQueryUrl = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=3kk6GeYI33isq0pYrdZXtAzFOfgKit6A&locale=*&size='+ size, {
+        cors: 'no-cors'
+     }
 
     if (format) {
         // this probably isn't right but it gives us an idea - figure out what the query is supposed to be
-        bandsQueryUrl = 'https://rest.bandsintown.com/' + format + '';
+        ticketMasterQueryUrl = 'https://app.ticketmaster.com' + format + '';
     }
     // Should query be date? or genre or something?
-    bandsQueryUrl = bandsQueryUrl + '' + query;
+    ticketMasterQueryUrl = ticketMasterQueryUrl + '' + query;
 
-    fetch(bandsQueryUrl)
+    fetch(tickerMasterQueryUrl)
         .then(function (response) {
             if (!response.ok) {
                 throw response.json();   
@@ -72,14 +74,14 @@ function searchBandsApi(query, format) {
             return response.json
         })
 
-        // bandsRes function should be blue???
-        .then(function (bandsRes) {
+        // ticketMasterRes function should be blue???
+        .then(function (ticketMasterRes) {
             // except it won't be textContent since it's a date entered via datepicker
             resultDateEl.textContent = bandsRes.search.query;
 
             // might not be this because length isn't really a factor in datepicker. 
             // Basically make it so that if there are no concerts that day, it says no results found
-            if (!bandsRes.results.length) {
+            if (!ticketMasterRes.results.length) {
                 console.log('No results found!');
                 resultContentEl.innerHTML = '<h4>No results found, search for another date!</h4>';
               } else {
@@ -97,6 +99,28 @@ function searchBandsApi(query, format) {
 }
 
 
+// YouTubeAPi
+// Not sure if we need this (next 15 of so lines of code), but the docs mentioned using a client library to make things easier for implementing the YouTube Data API
+function start() {
+    // 2. Initialize the JavaScript client library.
+    gapi.client.init({
+      'apiKey': 'AIzaSyDxWSUOzk1HgiU8Rdb1gOwYJE3l-H6fACY'
+    }).then(function() {
+      // 3. Initialize and make the API request.
+      return gapi.client.request({
+        'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
+      })
+    }).then(function(response) {
+      console.log(response.result);
+    }, function(reason) {
+      console.log('Error: ' + reason.result.error.message);
+    });
+  };
+  // 1. Load the JavaScript client library.
+  gapi.load('client', start);
+
+
+
 
 // click events function(s)
 function handleSearchFormSubmit (event) {
@@ -109,11 +133,28 @@ function handleSearchFormSubmit (event) {
         console.error('You must select a date!');
         return;
     }
-    // add any other variabel here for searching API
-    searchBandsApi(dateInputVal);
+    // add any other variable here for searching API
+    searchTMApi(dateInputVal);
 }
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
 // local storage
+var artistSearchInputVal = document.getElementById("#asearch");
+var dateSearchVal = document.getElementById("#datepicker");
+// do whatever clickMeBtn we have here instead for the next 4 lines)
+// var signUpButton = document.querySelector("#sign-up");
+
+// signUpButton.addEventListener("click", function(event) {
+//   event.preventDefault();
+  
+  // create user object from submission
+  var user = {
+    artistSearch: artistSearchInputVal.value.trim(),
+    dateSearch: dateSearchVal.value.trim(),
+  };
+
+  // set new submission to local storage 
+  localStorage.setItem("user", JSON.stringify(user));
+});
