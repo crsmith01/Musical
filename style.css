@@ -1,0 +1,146 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  background-image:url("./assets/music-hero2.jpg") ;
+}
+
+h1{
+
+padding-top: 20%;
+font-size: 40px;
+color:var(--primary);
+font-weight: bolder;
+}
+label{
+  font-size: 1.2rem;
+  color:white;
+  padding-bottom:60%;
+  font-weight: bolder;
+}
+
+td{
+  background-color: white;
+
+}
+p {
+  font-size: 1.2rem;
+  color:white;
+  padding-bottom: 10%;
+  font-weight: bolder;
+
+}
+p.lead{
+  padding-top: 20%;
+  font-size: 1.5rem ;
+
+}
+.btn-inline {
+  display: inline;
+}
+#btn:hover {
+  color:black;
+  background-color:rgb(197, 82, 197);
+  transform: translate(0, 0);
+ 
+  
+}
+.btn{
+  font-size: 1.0rem;
+  text-decoration:none;
+  width: 15%;
+  text-align: center;
+  justify-content: center;
+  
+
+}
+input{
+  text-align: center;
+  justify-content: center;
+}
+input:hover{
+  color:black;
+  background-color:rgb(197, 82, 197);
+  transform: translate(0, 0);
+}
+span{
+  font-weight:20px;
+  color: white;
+}
+
+.hero-full-screen {
+  height: 100vh;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: url("./assets/images/image.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+
+.hero-full-screen .middle-content-section {
+  text-align: center;
+  color: #fefefe;
+}
+
+.hero-full-screen .top-content-section {
+  width: 100%;
+}
+
+.hero-full-screen .bottom-content-section {
+  padding: 1rem;
+}
+
+.hero-full-screen .bottom-content-section svg {
+  height: 3.75rem;
+  width: 3.75rem;
+  fill: #fefefe;
+}
+
+.hero-full-screen .top-bar {
+  background: transparent;
+}
+
+.hero-full-screen .top-bar .menu {
+  background: transparent;
+}
+
+.hero-full-screen .top-bar .menu-text {
+  color: #fefefe;
+}
+
+.hero-full-screen .top-bar .menu li {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+
+.hero-full-screen .top-bar .menu a {
+  color: #fefefe;
+  font-weight: bold;
+}
+footer{
+  display: block;
+  font-size: small;
+  text-align: center;
+  color: aliceblue;
+  }
+
+
+  
+  
