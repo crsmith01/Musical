@@ -4,7 +4,7 @@
 }
 
 body{
-  background-image:url("./assets/music-hero2.jpg") ;
+  background-image:url("assets/images/image.jpg") ;
 }
 
 h1{
@@ -50,12 +50,20 @@ p.lead{
 .btn{
   font-size: 1.0rem;
   text-decoration:none;
-  width: 15%;
   text-align: center;
   justify-content: center;
-  
+}
+a{
+  font-weight: bold;
+  color: #fefefe;
+}
+button:hover{
+  color:black;
+  background-color:rgb(197, 82, 197);
+  transform: translate(0, 0);
 
 }
+
 input{
   text-align: center;
   justify-content: center;
