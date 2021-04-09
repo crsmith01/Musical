@@ -1,106 +1,22 @@
 // Globally scoped variables
-var resultDateEl = document.querySelector('#result-date');
+var resultTextEl = document.querySelector('#result-text');
 var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
 
 
+// not sure if we need this???
+function getParams() {
+  // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
+  var searchParamsArr = document.location.search
 
-// 
-function writeResults(resultObj) {
-    console.log(resultObj)
+  // Get the query and format values
+  var query = searchParamsArr[0].split('=').pop();'"'
 
-    // set up a <div> to hold result content
-    var resultCard = document.createElement('div');
-    resultCard.classList.add('card', 'bg-dark', 'text-light');
-    // will need to change some of the above style-wise since it's bootstrap
-
-    var resultBody = document.createElement('div');
-    resultBody.classList.add('card-body');
-    resultCard.append(resultCard);
-
-    var titleEventEl = document.createElement('h3');
-    titleEventEl.textContent = resultObj.title;
-
-    var bodyContentEl = document.createElement('p');
-    // This could change once we see what the API shows
-    bodyContentEl.innterHTML = 
-        '<strong>Date:</strong>' + resultObj.date + '<br/>';
-    
-    if (resultObj.artist) {
-        bodyContentEl.innterHTML +=
-        '<strong>Artist:</strong>' + resultObj.artist.join(', ') + '<br/>';
-    }
-
-    if (resultObj.description) {
-        bodyContentEl.innterHTML +=
-        '<strong>Description:</strong>' + resultObj.description[0];
-    } else {
-        bodyContentEl.innterHTML +=
-        '<strong>Description:</strong>  No description for this event.';
-        // should that be no description for this event or artist? Or nix it and use something else
-    }
-
-    // can add any other parts to a result tab that we need
-
-    var linkButtonEl = document.createElement('a');
-    linkButtonEl.textContent = 'Learn More';
-    linkButtonEl.setAttribute('href', resultObj.url);
-    linkButtonEl.classList.add('btn');
-
-    resultBody.append(titleEl, bodyContentEl, linkButtonEl);
-
-    resultContentEl.append(resultCard);
+  searchYouTubeApi(query);
 }
-xs
-
-function searchTMApi(query, format) {
-    // nee to figure out what query(s) we need from them - this one is just searching for a specific artist's events (replace {{arist name}} with actual artist name - no punctuation needed between words in artist name)
-    var ticketMasterQueryUrl = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=3kk6GeYI33isq0pYrdZXtAzFOfgKit6A&locale=*&size='+ size, {
-        cors: 'no-cors'
-     }
-     
-
-    if (format) {
-        // this probably isn't right but it gives us an idea - figure out what the query is supposed to be
-        ticketMasterQueryUrl = 'https://app.ticketmaster.com' + format + '';
-    }
-    // Should query be date? or genre or something?
-    ticketMasterQueryUrl = ticketMasterQueryUrl + '' + query;
-
-    fetch(tickerMasterQueryUrl)
-        .then(function (response) {
-            if (!response.ok) {
-                throw response.json();   
-            }
-            return response.json
-        })
-
-        // ticketMasterRes function should be blue???
-        .then(function (ticketMasterRes) {
-            // except it won't be textContent since it's a date entered via datepicker
-            resultDateEl.textContent = ticketMasterRes.search.query;
-
-            // might not be this because length isn't really a factor in datepicker. 
-            // Basically make it so that if there are no concerts that day, it says no results found
-            if (!ticketMasterRes.results.length) {
-                console.log('No results found!');
-                resultContentEl.innerHTML = '<h4>No results found, search for another date!</h4>';
-              } else {
-                resultContentEl.textContent = '';
-                for (var i = 0; i < bandsRes.results.length; i++) {
-                  writeResults(bandsRes.results[i]);
-                }
-              }
-
-            }
-
-        })
 
 
-}:
-
-
-// YouTubeAPi
+// YouTube API set up 
 // Not sure if we need this (next 15 of so lines of code), but the docs mentioned using a client library to make things easier for implementing the YouTube Data API
 function start() {
     // 2. Initialize the JavaScript client library.
@@ -123,39 +39,136 @@ function start() {
 
 
 
-// click events function(s)
-function handleSearchFormSubmit (event) {
-    event.preventDefault();
 
-    var dateInputVal = document.querySelector('#date-input');
-    // any other variables we use for searching (i.e. genre, location, etc.)
 
-    if (!dateInputVal) {
-        console.error('You must select a date!');
-        return;
+function searchYouTubeAPI (query) {
+  var result = document.
+  // trying to get the artist name from Randy's ticketmaster API results
+  const currentEvent = JSON.parse(localStorage.getItem("artistName") || "{}");
+
+  // var requestYouTubeUrl = '  https://youtube.googleapis.com/youtube/v3/youtube.search.list?part=snippet&order=viewCount&q=skateboarding+dog&type=video&videoDefinition=high';
+  var requestYouTubeUrl = '  https://youtube.googleapis.com/youtube/v3/youtube.search.list?part=snippet&order=viewCount&q=' + currentEvent + '&type=video&videoDefinition=high';
+
+  fetch (requestYouTubeUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json(;
+      })
+    .then(function (youtubeResults) {
+      resultTextEl.textContent = youtubeResults.search.query;
+      console.log(youtubeResults);
+
+      if (!youtubeResults.results.length) {
+        console.log('No results found for this artist!');
+        resultContentEl.innerHTML = '<h3>No results found for this artist, search again!</h3>';
+      } else {
+        resultContentEl.textContent = '';
+        for (var i = 0; i < youtubeResults.results.length; i++) {
+          printResults(youtubeResults.results[i]);
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+
+
+
+// YouTube API parameters explained:
+// Calls the search.list method to find the most viewed, high-definition (HD) videos associated with the query. The query sets the order, part, q, type, and videoDefinition parameters.
+// part = snippet = The part parameter specifies a comma-separated list of one or more search resource properties that the API response will include. Set the parameter value to snippet.
+// order = viewCount = by most viewed (video with most views appears first) - idea is that the most popular videos for that artist appear
+// q = query = here we use the artist that resulted in the Ticketmaster API search
+// type = video
+// &videoDefinition = high
+// key = developer API key
+
+
+
+
+// Function to print the results to the results page
+function printResults(resultObj) {
+  console.log(resultObj)
+
+  // set up a <div> to hold the result content
+  var resultCard = document.createElement('div');
+  resultCard.classList.add('card-content');
+
+  var resultBody = document.createElement('div');
+  resultBody.classList.add('card-content');
+  resultCard.append(resultCard);
+
+  var titleEventEl = document.createElement('h3');
+  titleEventEl.textContent = resultObj.title;
+
+  var bodyContentEl = document.createElement('p');
+// traversing through what the API gives us (title and description of video = will not show actual video)
+  bodyContentEl.innterHTML =   
+    if (resultObj.items.snippet.title) {
+        bodyContentEl.innterHTML +=
+        '<strong>Artist:</strong>' + resultObj.items.snippet.title.join(', ') + '<br/>';
     }
-    // add any other variable here for searching API
-    searchTMApi(dateInputVal);
+
+    if (resultObj.items.snippet.description) {
+        bodyContentEl.innerHTML +=
+        '<strong>Description:</strong>' + resultObj.items.snippet.description[0] + '<br/>'];
+    } else {
+        bodyContentEl.innerHTML +=
+        '<strong>Description:</strong>  No description for this event.'  + '<br/>';
+    }
+
+
+// parts to traverse to and use and display from the youtube API
+// items.snippet.title;
+// items.snippet.description;
+// items.snippet.channelTitle;
+
+
+
+//  link to external site:
+//   var linkButtonEl = document.createElement('a');
+//   linkButtonEl.textContent = 'Popular YouTube Video for Artist';
+//   linkButtonEl.setAttribute('href', resultObj.url);
+//   linkButtonEl.classList.add('btn');
+// resultBody.append(titleEl, bodyContentEl, linkButtonEl);
+
+
+
+  resultBody.append(titleEl, bodyContentEl);
+
+  resultContentEl.append(resultCard);
 }
 
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
-// local storage - Randy is working on this
-var artistSearchInputVal = document.getElementById("#asearch");
-var dateSearchVal = document.getElementById("#datepicker");
-// do whatever clickMeBtn we have here instead for the next 4 lines)
-// var signUpButton = document.querySelector("#sign-up");
 
-// signUpButton.addEventListener("click", function(event) {
-//   event.preventDefault();
-  
-  // create user object from submission
-  var user = {
-    artistSearch: artistSearchInputVal.value.trim(),
-    dateSearch: dateSearchVal.value.trim(),
-  };
+// The below I think was moved to the homepage.js or script.js = whichever we're using = pretty sure Randy's is the one we're going wtih
+// click events function(s)
+var searchFormEl = document.querySelector('#search-form');
 
-  // set new submission to local storage 
-  localStorage.setItem("user", JSON.stringify(user));
-});
+// Function to submit form
+function handleSearchFormSubmit(event) {
+  event.preventDefault();
+
+  // trim() method to eliminate extra space typed in by user
+  var searchInputVal = document.querySelector('#search-input').value.trim();
+
+  // Conditional to ensure there is a value searched
+  if (!searchInputVal) {
+    console.error('You need a search input value!');
+    return;
+  }
+  console.log('worked!')
+
+  // In future, add function for spell checking
+
+  // Redirects to the results page
+  var queryString = './display-results.html?q=' + searchInputVal;
+
+  location.assign(queryString);
+}
+// Event listener 
+searchFormEl.addEventListener('click', handleSearchFormSubmit);
