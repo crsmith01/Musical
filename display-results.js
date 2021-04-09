@@ -58,6 +58,7 @@ function searchTMApi(query, format) {
     var ticketMasterQueryUrl = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=3kk6GeYI33isq0pYrdZXtAzFOfgKit6A&locale=*&size='+ size, {
         cors: 'no-cors'
      }
+     
 
     if (format) {
         // this probably isn't right but it gives us an idea - figure out what the query is supposed to be
@@ -96,7 +97,7 @@ function searchTMApi(query, format) {
         })
 
 
-}
+}:
 
 
 // YouTubeAPi
