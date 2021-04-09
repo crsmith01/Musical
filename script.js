@@ -1,3 +1,7 @@
+var cities = [];
+var cityresults = [];
+
+
 var update = function () {
     $('#currentDay').text(moment().format('dddd, MMMM Do'));
     $('#currentTime').text(moment().format('h:mm:ss a'));
@@ -29,6 +33,9 @@ fetch(
                 var artistName = document.createElement('a');
                 artistName.textContent = artist;
                results.appendChild(artistName);
+
+               localStorage.setItem(artist, artist);
+
              }
             });   
         }
@@ -36,3 +43,38 @@ fetch(
     })
 };
 artistSearch.addEventListener('click', getCity);
+
+var search = document.querySelector('.city');
+  var user = {
+    artistSearch: search.value
+  };
+  // set new submission to local storage 
+  
+
+  function saveCity(){
+   
+
+    var city = document. querySelector('input').value;
+
+     
+    cities.push(city);
+
+    localStorage.setItem("city", city);
+
+    console.log(city + 'city');
+
+  }
+
+
+  
+  function showResults(){
+    var results = document.querySelector('.results');
+    cityresults.push(results);
+
+    
+
+  }
+
+
+  artistSearch.addEventListener('click', saveCity );
+  artistSearch.addEventListener('click', showResults );
