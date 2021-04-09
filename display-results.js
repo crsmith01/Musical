@@ -140,7 +140,7 @@ function handleSearchFormSubmit (event) {
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
-// local storage
+// local storage - Randy is working on this
 var artistSearchInputVal = document.getElementById("#asearch");
 var dateSearchVal = document.getElementById("#datepicker");
 // do whatever clickMeBtn we have here instead for the next 4 lines)
