@@ -78,7 +78,9 @@ Our project has fulfilled the following requirements:
 * [JQuery](https://jquery.com)
 * [Moment](https://momentjs.com/)
 ## link
-[link](https://github.com/crsmith01/Musical)
+[link](https://crsmith01.github.io/Musical/)
+
+[link](https://https://crsmith01.github.io/Musical/)
 
 ## screenshot
 ![screenshot](./assets/images/Screenshot-2021-04-08-205028.jpg)
