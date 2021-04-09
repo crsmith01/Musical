@@ -10,12 +10,12 @@ function handleSearchFormSubmit(event) {
     return;
   }
 
-  var queryString = './display-results.html' + searchInputVal;
+  var queryString = './display-results.html?q=' + searchInputVal;
 
   location.assign(queryString);
 }
 
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+searchFormEl.addEventListener('click', handleSearchFormSubmit);
 
 
 
@@ -24,5 +24,5 @@ var update = function () {
     $('#currentTime').text(moment().format('h:mm:ss a'));
   };
   update();
-  // Updates the time every second, so clock is is always up-to-date.
+  // Updates the time every second, so clock is always up-to-date.
   setInterval(update, 1000);

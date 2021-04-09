@@ -36,6 +36,13 @@ fetch(
 
                localStorage.setItem(artist, artist);
 
+
+              //  This (next 5 lines of code) is what the AskBCS person was saying was needed to set the results of this API to local storage for use in the YouTube API 
+              const obj = {
+                id: data._embedded.events[0].id,
+                name: data._embedded.events[0].name
+              };
+              localStorage.setItem("currentEvent", JSON.stringify(obj));
              }
             });   
         }
@@ -48,8 +55,9 @@ var search = document.querySelector('.city');
   var user = {
     artistSearch: search.value
   };
-  // set new submission to local storage 
-  
+
+
+  // set new submission to local storage   
 
   function saveCity(){
    
@@ -78,3 +86,27 @@ var search = document.querySelector('.city');
 
   artistSearch.addEventListener('click', saveCity );
   artistSearch.addEventListener('click', showResults );
+
+
+
+
+
+// This is partially redundant with what Randy has above for the button - let's take a look 
+var searchFormEl = document.querySelector('#search-form');
+
+function handleSearchFormSubmit(event) {
+  event.preventDefault();
+
+  var searchInputVal = document.querySelector('#search-input').value;
+
+  if (!searchInputVal) {
+    console.error('You need a search input value!');
+    return;
+  }
+// takes us to the next page BUT currently prevents us from seeing the results of Randy's API
+  var queryString = './display-results.html?q=' + searchInputVal;
+
+  locatin.assign(queryString);
+}
+
+searchFormEl.addEventListener('click', handleSearchFormSubmit);
