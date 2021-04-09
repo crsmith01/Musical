@@ -1,7 +1,4 @@
 
-## Deployed Application
-https://crsmith01.github.io/project-1
-=======
 <!-- PROJECT LOGO -->
 <br />
 <p>
@@ -41,20 +38,18 @@ This project is a Search Engine for Live Music.
 ## User Story
 ```
 AS A user 
-I WANT to search live music events in the United States by artist name or by date
-SO THAT I can learn about performances near me and also find youtube videos for the artist being searched.
+I WANT to search live music events in the United States by city name 
+SO THAT I can learn about performances near me and also find YouTube videos for the artist displayed in the search results.
 ```
 ## Acceptance Criteria
 ```
-GIVEN I am a user looking to attend or learn about concerts near me,
+GIVEN I am a user looking to attend or learn about concerts ,Artist, near me, or any city in th USA
 * WHEN I open the page,
-THEN I am presented with two search options for finding live music. 
-* WHEN I search for live music,
-THEN I can use one search button to search by artist name or the other button to search by date.
-* WHEN I search by name  ,
-THEN I am presented with all the artist events
-* WHEN I search by date, 
-THEN am presented by with all events happening on that date,
+* THEN I am presented with a search bar input by city. 
+* WHEN I click the search button 
+* THEN I am taken to another page that will display the results of my search,
+* WHEN I choose the Artist 
+* THEN I will be able to see all the live events and watch their YouTube videos .
  
 ```
 ## Application Requirements
@@ -81,17 +76,16 @@ Our project has fulfilled the following requirements:
 
 * [Bulma](https://bulma.io)
 * [JQuery](https://jquery.com)
-* [Foundation](https://get.foundation)
 * [Moment](https://momentjs.com/)
 ## link
 [link](https://github.com/crsmith01/Musical)
 
 ## screenshot
-![screenshot](./assets/images/Screenshot-2021-04-07-131506.jpg)
+![screenshot](./assets/images/Screenshot-2021-04-08-205028.jpg)
 
 ## Brought To You by:
 ``
 * [Catherine Smith](https://github.com/crsmith01)
 * [Shaima Jobran](https://github.com/shaimajobran)
 * [Randy Faison ](https://github.com/randyfasion)
-* [Brian Carroll]
+
