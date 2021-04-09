@@ -44,7 +44,7 @@ fetch(
 };
 artistSearch.addEventListener('click', getCity);
 
-var search = document.querySelector('.city');
+var search = document.querySelector('.City');
   var user = {
     artistSearch: search.value
   };
