@@ -100,13 +100,13 @@ function handleSearchFormSubmit(event) {
   var searchInputVal = document.querySelector('#search-input').value;
 
   if (!searchInputVal) {
-    console.error('You need a search input value!');
+    console.log('You need a search input value!');
     return;
   }
 // takes us to the next page BUT currently prevents us from seeing the results of Randy's API
   var queryString = './display-results.html?q=' + searchInputVal;
 
-  locatin.assign(queryString);
+ // location.assign(queryString);
 }
 
 searchFormEl.addEventListener('click', handleSearchFormSubmit);

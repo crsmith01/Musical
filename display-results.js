@@ -54,7 +54,7 @@ function searchYouTubeAPI (query) {
       if (!response.ok) {
         throw response.json();
       }
-      return response.json(;
+      return response.json();
       })
     .then(function (youtubeResults) {
       resultTextEl.textContent = youtubeResults.search.query;
@@ -166,9 +166,9 @@ function handleSearchFormSubmit(event) {
   // In future, add function for spell checking
 
   // Redirects to the results page
-  var queryString = './display-results.html?q=' + searchInputVal;
+ // var queryString = './display-results.html?q=' + searchInputVal;
 
-  location.assign(queryString);
+ location.assign(queryString);
 }
 // Event listener 
-searchFormEl.addEventListener('click', handleSearchFormSubmit);
+searchFormEl.addEventListener('click', handleSearchFormSubmit)};
